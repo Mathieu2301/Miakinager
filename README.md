@@ -1,12 +1,20 @@
 # Miakinager
- UI for server running with PM2
+ Miakinager is a free and open UI for PM2.
+ Very easy to install, to configure and to use, with a pure interface.
+ It allows you to easily manage PM2 process running on a machine, fetching logs, errors and PM2 Metrics.
+ You can also make actions like Start, Stop, Restart, Reload, Delete a process.
  
+ ![](http://i.imgur.com/Hrm3IQH.png)
+ ![](http://i.imgur.com/VSzXJMi.png)
+
 ## Installation
 
-1. `pm2 install miakinager` 
-2. Go to [localhost](http://localhost)
-3. Login with default password : `password`
-4. Done !
+```
+pm2 install miakinager
+```
+1. Go to [localhost](http://localhost)
+2. Login with default password : `password`
+3. Done !
 
 ## Configuration
 
@@ -19,7 +27,7 @@
  - Modify SSL Certificates path
  - Modify the directory where Miakinager is automatically looking for all directories where a `package.json` file is.
  
-## Launch
+## Developement
  
  There are two different repositories.
  First, at the root, is the server (NodeJS/Express).
@@ -42,7 +50,8 @@
  3. Just run `npm start` and go to [http://localhost](localhost)
  or [https://localhost](https://localhost) if you are in SSL mode.
 
+___
 ## Problems
 
  If you have errors in console or unwanted behavior, just reload the page.
- If the problem persists, please create an issue.
+ If the problem persists, please create an issue [here](https://github.com/Mathieu2301/Miakinager/issues).
