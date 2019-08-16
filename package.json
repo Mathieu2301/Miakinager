@@ -1,6 +1,6 @@
 {
   "name": "miakinager",
-  "version": "1.0.0",
+  "version": "0.1.2",
   "description": "Manage PM2 processes",
   "main": "index.js",
   "scripts": {
