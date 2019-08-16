@@ -11,7 +11,9 @@ const server = ($$.ssl.enabled
     : require('http').createServer(app)
 );
 
-server.listen($$.ssl.enabled ? 433 : 80);
+const port = $$.ssl.enabled ? 433 : 80;
+console.info(`Listening on port: ${port}`);
+server.listen(port);
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -34,11 +36,7 @@ pm2.connect(err => {
     }
       
     if ($$.dir) fs.readdir($$.dir, function(err, projects){
-        projects.forEach(project => {
-            if (project.toUpperCase() != "MIAKINAGER"){
-                initProcess(project);
-            }
-        });
+        projects.forEach(initProcess);
     });
 
     app.get('/api/:auth/unactive/', function(req, res){
@@ -66,7 +64,7 @@ pm2.connect(err => {
     app.get('/api/:auth/list/', function(req, res){
         auth(req.params.auth, _=> {
             pm2.list((err, processes) => {
-                processes = processes.map(processGetter);
+                processes = processes.filter(p=> p.name != "miakinager").map(processGetter);
                 if (!err) res.send({processes});
                 else res.send(err);
             });
@@ -187,19 +185,21 @@ function initProcess(name){
     this.name = name;
     this.path = $$.dir+name;
     fs.exists(`${this.path}/package.json`, packagefile => {
-        if (packagefile){
+        if (packagefile && name.toUpperCase() != "MIAKINAGER"){
             try{
                 let package_json = require(`${this.path}/package.json`);
-                let infos = {
-                    name: package_json.name,
-                    description: package_json.description,
-                    version: package_json.version,
-                    startup: package_json.startup,
-                    path: this.path
+                if (package_json.name != "MIAKINAGER"){
+                    let infos = {
+                        name: package_json.name,
+                        description: package_json.description,
+                        version: package_json.version,
+                        startup: package_json.startup,
+                        path: this.path
+                    }
+    
+                    if (infos.startup == true) this.start();
+                    else unactive_p[name] = infos;
                 }
-
-                if (infos.startup == true) this.start();
-                else unactive_p[name] = infos;
             }catch(e){}
         }
     });
