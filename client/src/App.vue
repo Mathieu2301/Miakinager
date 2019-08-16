@@ -8,6 +8,18 @@
   </div>
 </template>
 
+<script>
+export default {
+  created(){
+    if (!localStorage.getItem("auth")){
+      console.log(this.router)
+      console.log(this.route)
+      this.route.replace("/login")
+    }
+  }
+}
+</script>
+
 <style>
 
 :root {
@@ -91,6 +103,47 @@ a {
   opacity: 0;
   transform: translate(-65%, 0);
 }
+
+.middle {
+  position: absolute;
+  --width: 900px;
+  top: 30%;
+  left: calc(50% - (var(--width)/2));
+  width: var(--width);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 18px;
+  line-height: 40px;  
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+tr {
+  border-bottom: 1px solid var(--color7);
+}
+
+.selectable:hover {
+  border-bottom: 1px solid var(--color9);
+}
+
+.add_process {
+  line-height: 40px;
+  padding: 8px;
+  font-size: 40px;
+  font-family: none;
+  cursor: pointer;
+  box-shadow: inset 0px -1px var(--color9);
+}
+
+.add_process:hover { box-shadow: inset 0px -57px var(--color9) }
+
 </style>
 
 <script>
@@ -100,7 +153,7 @@ export default {
   components,
   computed: {
     transitionName(){
-      return 'slide-' + (this.$route.path == "/" ? 'right' : 'left')
+      return 'slide-' + (["/", "/login"].includes(this.$route.path) ? 'right' : 'left')
     }
   }
 }

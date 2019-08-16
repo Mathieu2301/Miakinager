@@ -26,8 +26,15 @@
             <td><div :class="{ status: key=='status', online: info=='online', offline: info!='online' }">{{ info | parse(key) }}</div></td>
           </tr>
         </table>
+      </div>
 
-        <div class="separator"></div>
+      <div>
+        <div>
+          <h2>Logs</h2>
+          <ul class="logs">
+            <li v-for="(log, key) in logs" :key="key">{{log}}</li>
+          </ul>
+        </div>
 
         <div>
           <h2>Errors</h2>
@@ -35,15 +42,6 @@
             <li v-for="(log, key) in err_logs" :key="key">{{log}}</li>
           </ul>
         </div>
-      
-      </div>
-
-
-      <div>
-        <h2>Logs</h2>
-        <ul class="logs">
-          <li v-for="(log, key) in logs" :key="key">{{log}}</li>
-        </ul>
       </div>
 
     </div>
@@ -55,7 +53,6 @@
   import { components, filters } from "@/global.js"
 
   import moment from 'moment'
-  import 'izitoast/dist/css/iziToast.min.css'
   import izitoast from 'izitoast'
 
   export default {
@@ -70,30 +67,25 @@
       }
     },
 
-    mounted(){
-      setInterval(this.refresh, 1000)
+    created(){
+      this.api.event.process = this.$route.params.id
+      this.api.event.onprocess = process => {
+        if (process && process.infos){
+          this.infos      = process.infos
+          this.logs       = process.logs
+          this.err_logs   = process.err_logs
+          this.loaded     = true
+        }else{
+          if (this.$route.params.id) izitoast.error({message: `The process ${this.$route.params.id} doesn't exists`})
+          this.$router.replace('/')
+        }
+      }
     },
 
     methods: {
-      refresh(){
-        if (this.$route.params.id){
-          this.api.process(this.$route.params.id).getInfos(process => {
-            if (process && process.infos){
-              this.infos      = process.infos
-              this.logs       = process.logs
-              this.err_logs   = process.err_logs
-              this.loaded     = true
-            }else{
-              if (this.$route.params.id) izitoast.error({message: `The process ${this.$route.params.id} doesn't exists`});
-              this.$router.replace('/');
-            }
-          })
-        }
-      },
-
       action(action){
         this.api.process(this.$route.params.id).action(action, rs => {
-          if (rs.success) izitoast.success( { title: "Success", message: "Action performed" })
+          if (rs.success) izitoast.success( { title: "Success", message: rs.message         })
           else            izitoast.error(   { title: "Error",   message: rs.error.message   })
           
           if (action == "delete") this.$router.replace('/');

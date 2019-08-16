@@ -1,5 +1,5 @@
 <template>
-  <div class="list">
+  <div class="middle">
     
     <div v-if="loaded">
       <table>
@@ -35,7 +35,6 @@
 
 <script>
   import { components, filters } from "@/global.js"
-  import iziToast from 'izitoast';
 
   export default {
     components, filters,
@@ -47,26 +46,21 @@
       }
     },
 
-    mounted(){
-      // this.refresh()
-      setInterval(this.refresh, 1000)
+    created(){
+      this.api.event.onlist = ps => {
+        this.processes = ps
+        this.loaded = true
+      }
     },
 
     methods: {
 
-      refresh(){
-        this.api.getList(ps => {
-          this.processes = ps
-          this.loaded = true
-        })
-      },
-
       select(process){
-        this.$router.replace("/" + process.name)
+        this.$router.push("/p/" + process.name)
       },
 
       add_process(){
-        this.$router.replace("/new")
+        this.$router.replace("/active")
       }
     },
   }
@@ -74,47 +68,5 @@
 
 
 <style scoped>
-
-.list {
-  max-width: 900px;
-  margin: 100px auto;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 18px;
-  line-height: 40px;
-  
-}
-
-th, td {
-  padding: 8px;
-  text-align: left;
-}
-
-tr {
-  border-bottom: 1px solid var(--color7);
-}
-
-/* .selectable:nth-child(even) {
-  background-color: #bebebe;
-} */
-
-.selectable:hover {
-  border-bottom: 1px solid var(--color9);
-}
-
-.add_process {
-  line-height: 40px;
-  padding: 8px;
-  font-size: 40px;
-  font-family: none;
-  cursor: pointer;
-  box-shadow: inset 0px -1px var(--color9);
-}
-
-.add_process:hover { box-shadow: inset 0px -57px var(--color9) }
 
 </style>
