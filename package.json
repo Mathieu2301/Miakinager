@@ -18,8 +18,5 @@
   "dependencies": {
     "express": "^4.17.1",
     "pm2": "^3.5.1"
-  },
-  "bin": {
-    
   }
 }
