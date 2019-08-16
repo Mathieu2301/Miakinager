@@ -1,0 +1,22 @@
+{
+  "name": "miakinager",
+  "version": "1.0.0",
+  "description": "Manage PM2 processes",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "keywords": [
+    "manage",
+    "processes",
+    "pm2",
+    "miakapp"
+  ],
+  "author": "Mathieu Colmon",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pm2": "^3.5.1"
+  }
+}

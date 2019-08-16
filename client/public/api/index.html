@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Miakinager API - documentation</title>
+
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        group {
+            display: block;
+            margin: 20px 10px;
+        }
+
+        group>section {margin-top: 20px;}
+
+        group>section>section-title {
+            display: block;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        group>section>section-description {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <group>
+
+        <section>
+            <section-title>GET /api/:auth/list/</section-title>
+            <section-description>
+                Fetch all the PM2 processes
+            </section-description>
+        </section>
+        
+        <section>
+            <section-title>GET /api/:auth/:pm_id/</section-title>
+            <section-description>
+                Fetch all the running infos of a process
+            </section-description>
+        </section>
+
+        <section>
+            <section-title>GET /api/:auth/:pm_id/logs/</section-title>
+            <section-description>
+                Fetch the logs of a PM2 process
+            </section-description>
+        </section>
+        
+        <section>
+            <section-title>POST /api/:auth/:pm_id/reload/</section-title>
+            <section-description>
+                Reload a process
+            </section-description>
+        </section>
+        
+        <section>
+            <section-title>POST /api/:auth/:pm_id/restart/</section-title>
+            <section-description>
+                Restart a process
+            </section-description>
+        </section>
+        
+        <section>
+            <section-title>POST /api/:auth/:pm_id/stop/</section-title>
+            <section-description>
+                Stop a process
+            </section-description>
+        </section>
+        
+    </group>
+</body>
+</html>
