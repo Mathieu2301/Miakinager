@@ -4,9 +4,10 @@
  It allows you to easily manage PM2 process running on a machine, fetching logs, errors and PM2 Metrics.
  You can also make actions like Start, Stop, Restart, Reload, Delete a process.
  
- ![](http://i.imgur.com/Hrm3IQH.png)
- ![](http://i.imgur.com/VSzXJMi.png)
+ ![MainPage](http://i.imgur.com/Hrm3IQH.png)
+ ![ProcessPage](http://i.imgur.com/VSzXJMi.png)
 
+___
 ## Installation
 
 ```
