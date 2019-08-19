@@ -11,7 +11,7 @@ const server = ($$.ssl.enabled
     : require('http').createServer(app)
 );
 
-const port = $$.ssl.enabled ? 433 : 80;
+const port = $$.ssl.enabled ? 443 : 80;
 console.info(`Listening on port: ${port}`);
 server.listen(port);
 
