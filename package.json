@@ -1,11 +1,12 @@
 {
   "name": "miakinager",
-  "version": "0.1.36",
+  "version": "0.1.37",
   "description": "Manage PM2 processes",
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dev": "nodemon index"
+    "dev": "nodemon index",
+    "publish": "npm i && cd client/ && npm i && npm run build && cd ../ && npm publish"
   },
   "keywords": [
     "manage",
