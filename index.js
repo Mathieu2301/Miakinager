@@ -11,9 +11,12 @@ const server = ($$.ssl.enabled
     : require('http').createServer(app)
 );
 
-const port = $$.ssl.enabled ? 443 : 80;
-console.info(`Listening on port: ${port}`);
-server.listen(port);
+const MIAKI_PORT = process.env['MIAKI_PORT']
+const port = $$.ssl.enabled ? 443 : MIAKI_PORT || 80;
+server.listen(port, () => {
+    console.info(`Listening on port: ${server.address().port}`);
+});
+
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
